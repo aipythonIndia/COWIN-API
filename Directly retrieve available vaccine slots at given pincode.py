@@ -40,13 +40,11 @@ print ("------------------------------------------------------------------------
 print ()
 
 for cent in range(Total_centers):
-    print ()
-    print (f"[{cent+1}] Center Name:", raw_JSON['centers'][cent]['name'])
-    fee_val = raw_JSON['centers'][cent]['fee_type']
-    print ("-------------------------------------------------------------------------")
-    print ("   Date      Vaccine Type   Vaccine Fee   Minimum Age    Available slot ")
-    print (" ----------  -------------  -----------   ------------   -------------- ")
+    curr_center = raw_JSON['centers'][cent]['name']
     this_session = raw_JSON['centers'][cent]['sessions']
     
     for _sess in range(len(this_session)):
-        print ( "{0:^12} {1:^12} {2:^13} {3:^14} {4:^16} ".format(this_session[_sess]['date'], this_session[_sess]['vaccine'], fee_val, this_session[_sess]['min_age_limit'], this_session[_sess]['available_capacity']))
+        avail_qnty = int (this_session[_sess]['available_capacity'])
+        vacc_type  = this_session[_sess]['vaccine']
+        if avail_qnty > 0:
+            
