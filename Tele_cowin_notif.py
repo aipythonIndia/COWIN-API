@@ -8,13 +8,14 @@ Sends Notifications on a Telegram channel , whenever the vaccine slot is availab
 
 import requests #can be installed using:  pip install requests
 from datetime import date
+from os import environ
 
 raw_TS = date.today()
 formatted_date = raw_TS.strftime("%d-%m-%Y")
-PINCODE = "802128"
+PINCODE = "801503"
 
 msg = "Blank"
-auth_token = "1802553040:AAEJOBYkPpvJuHxveA4Fs5C5OLIAQhbwGTI"
+tele_auth_token = environ[Tele_auth_tok]
 tel_group_id = "cowin_danapur_vaccine"
 
 request_link = f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode={PINCODE}&date={formatted_date}"
@@ -50,7 +51,7 @@ def get_availability_18(age = 18):
     send_msg_on_telegram(msg)
 
 def send_msg_on_telegram(msg):
-    telegram_api_url = f"https://api.telegram.org/bot{auth_token}/sendMessage?chat_id=@{tel_group_id}&text={msg}"
+    telegram_api_url = f"https://api.telegram.org/bot{tele_auth_token}/sendMessage?chat_id=@{tel_group_id}&text={msg}"
     tel_resp = requests.get(telegram_api_url)
 
     if tel_resp.status_code == 200:
