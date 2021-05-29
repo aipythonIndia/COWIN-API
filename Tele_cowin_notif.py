@@ -11,7 +11,7 @@ from datetime import date
 import time
 from os import environ
 
-time_interval = 4 # Specify the frequency of code execution
+time_interval = 1200 # Specify the frequency of code execution in seconds
 raw_TS = date.today()
 formatted_date = raw_TS.strftime("%d-%m-%Y")
 PINCODE = "801503"
