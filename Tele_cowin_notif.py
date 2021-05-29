@@ -6,16 +6,18 @@ website: www.aipython.in
 Sends Notifications on a Telegram channel , whenever the vaccine slot is available at the given PINCODE 
 """
 
-import requests #can be installed using:  pip install requests
+import requests
 from datetime import date
+import time
 from os import environ
 
+time_interval = 5 # Specify the frequency of code execution
 raw_TS = date.today()
 formatted_date = raw_TS.strftime("%d-%m-%Y")
 PINCODE = "801503"
 
 msg = "Blank"
-tele_auth_token = environ[Tele_auth_tok]
+tele_auth_token = environ['Tele_auth_tok']
 tel_group_id = "cowin_danapur_vaccine"
 
 request_link = f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode={PINCODE}&date={formatted_date}"
@@ -59,7 +61,8 @@ def send_msg_on_telegram(msg):
     else:
         print ("Could not send Message")
         
-        
-get_availability_45()
-get_availability_18()
+while True:        
+    get_availability_45()
+    get_availability_18()
+    time.sleep(time_interval)
 
