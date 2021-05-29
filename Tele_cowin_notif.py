@@ -11,7 +11,7 @@ from datetime import date
 import time
 from os import environ
 
-time_interval = 1200 # Specify the frequency of code execution in seconds
+time_interval = 50 # (in seconds) Specify the frequency of code execution
 raw_TS = date.today()
 formatted_date = raw_TS.strftime("%d-%m-%Y")
 PINCODE = "801503"
@@ -34,11 +34,11 @@ def get_availability_45(age = 45):
             if sess["min_age_limit"] == age and sess["available_capacity"] > 0:
                 slot_found =  True
                 msg = f"""For age 45+ [Vaccine Available]\n\tCenter : {cent["name"]}\n\tVaccine: {sess["vaccine"]}\n\tDose_1: {sess["available_capacity_dose1"]}\n\tDose_2: {sess["available_capacity_dose2"]}"""
-            else:
-                slot_found =  False
-                msg = f" For Age category 45+  >> No slot Available at PINCODE: {PINCODE}"
+                send_msg_on_telegram(msg)
+            # else:
+                # slot_found =  False
+                # msg = f" For Age category 45+  >> No slot Available at PINCODE: {PINCODE}"
     
-    send_msg_on_telegram(msg)
         
 def get_availability_18(age = 18):
     for cent in raw_JSON['centers']:
@@ -46,11 +46,10 @@ def get_availability_18(age = 18):
             if sess["min_age_limit"] == age and sess["available_capacity"] > 0:
                 slot_found =  True
                 msg = f"""For age 18+ [Vaccine Available]\n\tCenter : {cent["name"]}\n\tVaccine: {sess["vaccine"]}\n\tDose_1: {sess["available_capacity_dose1"]}\n\tDose_2: {sess["available_capacity_dose2"]}"""
-            else:
-                slot_found =  False
-                msg = f" For Age category 18+  >> No slot Available at PINCODE: {PINCODE}"
-    
-    send_msg_on_telegram(msg)
+                send_msg_on_telegram(msg)
+            # else:
+                # slot_found =  False
+                # msg = f" For Age category 18+  >> No slot Available at PINCODE: {PINCODE}"
 
 def send_msg_on_telegram(msg):
     telegram_api_url = f"https://api.telegram.org/bot{tele_auth_token}/sendMessage?chat_id=@{tel_group_id}&text={msg}"
