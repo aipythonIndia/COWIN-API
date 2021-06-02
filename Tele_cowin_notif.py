@@ -16,7 +16,7 @@ raw_TS = date.today()
 curr_time = (datetime.now().strftime("%H:%M:%S"))
 
 formatted_date = raw_TS.strftime("%d-%m-%Y")
-PINCODE = "801505"
+PINCODE = "801503"
 
 msg = "Blank"
 tele_auth_token = environ['Tele_auth_tok']
