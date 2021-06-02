@@ -13,7 +13,6 @@ from os import environ
 
 time_interval = 30 # (in seconds) Specify the frequency of code execution
 raw_TS = date.today()
-curr_time = (datetime.now().strftime("%H:%M:%S"))
 
 formatted_date = raw_TS.strftime("%d-%m-%Y")
 PINCODE = "801503"
@@ -31,6 +30,7 @@ raw_JSON = response.json()
 slot_found =  False # Intial Status for the slot
 
 def get_availability_45(age = 45):
+    curr_time = (datetime.now().strftime("%H:%M:%S"))
     for cent in raw_JSON['centers']:
         for sess in cent["sessions"]:
             if sess["min_age_limit"] == age and sess["available_capacity"] > 0:
@@ -44,6 +44,7 @@ def get_availability_45(age = 45):
     
         
 def get_availability_18(age = 18):
+    curr_time = (datetime.now().strftime("%H:%M:%S"))
     for cent in raw_JSON['centers']:
         for sess in cent["sessions"]:
             if sess["min_age_limit"] == age and sess["available_capacity"] > 0:
