@@ -11,7 +11,7 @@ from datetime import datetime, date
 import time
 from os import environ
 
-time_interval = 20 # (in seconds) Specify the frequency of code execution
+time_interval = 30 # (in seconds) Specify the frequency of code execution
 raw_TS = date.today()
 curr_time = (datetime.now().strftime("%H:%M:%S"))
 
