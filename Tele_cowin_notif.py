@@ -7,14 +7,16 @@ Sends Notifications on a Telegram channel , whenever the vaccine slot is availab
 """
 
 import requests
-from datetime import datetime, date
+from datetime import datetime, timedelta
 import time
 from os import environ
 
-time_interval = 30 # (in seconds) Specify the frequency of code execution
-raw_TS = date.today()
-
+time_interval = 20 # (in seconds) Specify the frequency of code execution
+raw_TS = datetime.now() + timedelta(days=1) # One day ahead
 formatted_date = raw_TS.strftime("%d-%m-%Y")
+
+today_date = datetime.now().strftime("%d-%m-%Y") #Current Date
+
 PINCODE = "801503"
 
 msg = "Blank"
@@ -33,28 +35,30 @@ def get_availability_45(age = 45):
     curr_time = (datetime.now().strftime("%H:%M:%S"))
     for cent in raw_JSON['centers']:
         for sess in cent["sessions"]:
+            sess_date = sess['date']
             if sess["min_age_limit"] == age and sess["available_capacity"] > 0:
                 slot_found =  True
-                msg = f"""For age 45+ [Vaccine Available] at {PINCODE}\n\tCenter : {cent["name"]}\n\tVaccine: {sess["vaccine"]}\n\tDose_1: {sess["available_capacity_dose1"]}\n\tDose_2: {sess["available_capacity_dose2"]}"""
+                msg = f"""For age 45+ [Vaccine Available] at {PINCODE} on {sess_date}\n\tCenter : {cent["name"]}\n\tVaccine: {sess["vaccine"]}\n\tDose_1: {sess["available_capacity_dose1"]}\n\tDose_2: {sess["available_capacity_dose2"]}"""
                 send_msg_on_telegram(msg)
                 print (f"INFO:[{curr_time}] Vaccine Found for 45+ at {PINCODE}")
     else:
         slot_found =  False
-        print (f"INFO: [{curr_time}] Vaccine NOT-Found for 45+ at {PINCODE}")
+        print (f"INFO: [{today_date}-{curr_time}] Vaccine NOT-Found for 45+ at {PINCODE}")
     
         
 def get_availability_18(age = 18):
     curr_time = (datetime.now().strftime("%H:%M:%S"))
     for cent in raw_JSON['centers']:
         for sess in cent["sessions"]:
+            sess_date = sess['date']
             if sess["min_age_limit"] == age and sess["available_capacity"] > 0:
                 slot_found =  True
-                msg = f"""For age 18+ [Vaccine Available] at {PINCODE}\n\tCenter : {cent["name"]}\n\tVaccine: {sess["vaccine"]}\n\tDose_1: {sess["available_capacity_dose1"]}\n\tDose_2: {sess["available_capacity_dose2"]}"""
+                msg = f"""For age 18+ [Vaccine Available] at {PINCODE} on {sess_date}\n\tCenter : {cent["name"]}\n\tVaccine: {sess["vaccine"]}\n\tDose_1: {sess["available_capacity_dose1"]}\n\tDose_2: {sess["available_capacity_dose2"]}"""
                 send_msg_on_telegram(msg)
                 print (f"INFO: [{curr_time}] Vaccine Found for 18+ at {PINCODE}")
     else:
         slot_found =  False
-        print (f"INFO: [{curr_time}] Vaccine NOT Found for 18+ at {PINCODE}")
+        print (f"INFO: [{today_date}-{curr_time}] Vaccine NOT Found for 18+ at {PINCODE}")
 
 def send_msg_on_telegram(msg):
     telegram_api_url = f"https://api.telegram.org/bot{tele_auth_token}/sendMessage?chat_id=@{tel_group_id}&text={msg}"
