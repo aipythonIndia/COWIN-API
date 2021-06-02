@@ -28,7 +28,7 @@ header = {'User-Agent': 'Chrome/84.0.4147.105 Safari/537.36'}
 response = requests.get(request_link, headers = header)
 raw_JSON = response.json()
 
-slot_found =  False
+slot_found =  False # Intial Status for the slot
 
 def get_availability_45(age = 45):
     for cent in raw_JSON['centers']:
