@@ -11,10 +11,10 @@ from datetime import date
 import time
 from os import environ
 
-time_interval = 50 # (in seconds) Specify the frequency of code execution
+time_interval = 15 # (in seconds) Specify the frequency of code execution
 raw_TS = date.today()
 formatted_date = raw_TS.strftime("%d-%m-%Y")
-PINCODE = "801503"
+PINCODE = "801505"
 
 msg = "Blank"
 tele_auth_token = environ['Tele_auth_tok']
@@ -33,7 +33,7 @@ def get_availability_45(age = 45):
         for sess in cent["sessions"]:
             if sess["min_age_limit"] == age and sess["available_capacity"] > 0:
                 slot_found =  True
-                msg = f"""For age 45+ [Vaccine Available]\n\tCenter : {cent["name"]}\n\tVaccine: {sess["vaccine"]}\n\tDose_1: {sess["available_capacity_dose1"]}\n\tDose_2: {sess["available_capacity_dose2"]}"""
+                msg = f"""For age 45+ [Vaccine Available] at {PINCODE}\n\tCenter : {cent["name"]}\n\tVaccine: {sess["vaccine"]}\n\tDose_1: {sess["available_capacity_dose1"]}\n\tDose_2: {sess["available_capacity_dose2"]}"""
                 send_msg_on_telegram(msg)
             # else:
                 # slot_found =  False
@@ -45,7 +45,7 @@ def get_availability_18(age = 18):
         for sess in cent["sessions"]:
             if sess["min_age_limit"] == age and sess["available_capacity"] > 0:
                 slot_found =  True
-                msg = f"""For age 18+ [Vaccine Available]\n\tCenter : {cent["name"]}\n\tVaccine: {sess["vaccine"]}\n\tDose_1: {sess["available_capacity_dose1"]}\n\tDose_2: {sess["available_capacity_dose2"]}"""
+                msg = f"""For age 18+ [Vaccine Available] at {PINCODE}\n\tCenter : {cent["name"]}\n\tVaccine: {sess["vaccine"]}\n\tDose_1: {sess["available_capacity_dose1"]}\n\tDose_2: {sess["available_capacity_dose2"]}"""
                 send_msg_on_telegram(msg)
             # else:
                 # slot_found =  False
