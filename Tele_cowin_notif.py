@@ -7,12 +7,14 @@ Sends Notifications on a Telegram channel , whenever the vaccine slot is availab
 """
 
 import requests
-from datetime import date
+from datetime import datetime, date
 import time
 from os import environ
 
 time_interval = 15 # (in seconds) Specify the frequency of code execution
 raw_TS = date.today()
+curr_time = (datetime.now().strftime("%H:%M:%S"))
+
 formatted_date = raw_TS.strftime("%d-%m-%Y")
 PINCODE = "801505"
 
@@ -35,6 +37,7 @@ def get_availability_45(age = 45):
                 slot_found =  True
                 msg = f"""For age 45+ [Vaccine Available] at {PINCODE}\n\tCenter : {cent["name"]}\n\tVaccine: {sess["vaccine"]}\n\tDose_1: {sess["available_capacity_dose1"]}\n\tDose_2: {sess["available_capacity_dose2"]}"""
                 send_msg_on_telegram(msg)
+                print (f"INFO:[{curr_time}] Vaccine Found for 45+ at {PINCODE}")
             # else:
                 # slot_found =  False
                 # msg = f" For Age category 45+  >> No slot Available at PINCODE: {PINCODE}"
@@ -47,6 +50,7 @@ def get_availability_18(age = 18):
                 slot_found =  True
                 msg = f"""For age 18+ [Vaccine Available] at {PINCODE}\n\tCenter : {cent["name"]}\n\tVaccine: {sess["vaccine"]}\n\tDose_1: {sess["available_capacity_dose1"]}\n\tDose_2: {sess["available_capacity_dose2"]}"""
                 send_msg_on_telegram(msg)
+                print (f"INFO: [{curr_time}] Vaccine Found for 18+ at {PINCODE}")
             # else:
                 # slot_found =  False
                 # msg = f" For Age category 18+  >> No slot Available at PINCODE: {PINCODE}"
