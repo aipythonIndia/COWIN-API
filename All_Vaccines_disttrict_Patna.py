@@ -83,9 +83,10 @@ while True:
     num_iterations += 1
     today_date, tomorrow_date, curr_time = update_date_time()
     raw_JSON = refresh_api_call(Dist_ID, tomorrow_date)
+    sess_len = len(raw_JSON['sessions'])
     print (f"INFO [{today_date}-{curr_time}] : Checking for VACCINES availabilities on the Portal")
-    print (f"Total {len(raw_JSON['sessions'])} centers found")
-    if len(raw_JSON['sessions']) != 0:
+    # print (f"Total {len(raw_JSON['sessions'])} centers found")
+    if sess_len > 0:
         for sess in raw_JSON['sessions']:
             age_limit           = sess['min_age_limit']
             center_name         = sess['name']
