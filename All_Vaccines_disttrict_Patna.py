@@ -33,10 +33,10 @@ def update_date_time():
 def refresh_api_call(Dist_ID, tomorrow_date):
     print ("Refreshing API call with updated parameters ...")
     request_link = f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id={Dist_ID}&date={tomorrow_date}"
-    print (request_link)
+    # print (request_link)
     response = requests.get(request_link, headers = header)
     resp_JSON = response.json()
-    print ("Printing response: \n", resp_JSON)
+    # print ("Printing response: \n", resp_JSON)
     return resp_JSON
 
 sent_dates_record  = [] # List of dates for age group 45+ for which one round of message has been sent
