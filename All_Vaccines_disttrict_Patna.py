@@ -36,7 +36,7 @@ def refresh_api_call(Dist_ID, tomorrow_date):
     # print (request_link)
     response = requests.get(request_link, headers = header)
     resp_JSON = response.json()
-    # print (resp_JSON)
+    print ("Printing response: \n", resp_JSON)
     return resp_JSON
 
 sent_dates_record  = [] # List of dates for age group 45+ for which one round of message has been sent
