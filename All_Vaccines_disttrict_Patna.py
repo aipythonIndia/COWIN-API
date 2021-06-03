@@ -86,32 +86,31 @@ while True:
     num_iterations += 1
     today_date, tomorrow_date, curr_time = update_date_time()
     raw_JSON = refresh_api_call(Dist_ID, tomorrow_date)
-    sess_len = len(raw_JSON['sessions'])
+    # sess_len = len(raw_JSON['sessions'])
     print (f"INFO [{today_date}-{curr_time}] : Checking for VACCINES availabilities on the Portal")
     # print (f"Total {len(raw_JSON['sessions'])} centers found")
-    if sess_len > 0:
-        for sess in raw_JSON['sessions']:
-            age_limit           = sess['min_age_limit']
-            center_name         = sess['name']
-            pincode             = sess['pincode']
-            vaccine_name        = sess['vaccine']
-            available_capacity  = sess['available_capacity']
-            qnty_dose_1         = sess['available_capacity_dose1']
-            qnty_dose_2         = sess['available_capacity_dose2']
-            slot_date           = sess['date']
-            
-            get_availability_for_45(age_limit, available_capacity)
-            get_availability_for_18(age_limit, available_capacity)
-            
-        # Update the dates in the list after sending one complete round of messages
-        if str(today_date) not in sent_dates_record:
-            sent_dates_record.append(str(today_date))
-        # sent_dates_record_18.append(str(today_date))
+    # if sess_len > 0:
+    for sess in raw_JSON['sessions']:
+        age_limit           = sess['min_age_limit']
+        center_name         = sess['name']
+        pincode             = sess['pincode']
+        vaccine_name        = sess['vaccine']
+        available_capacity  = sess['available_capacity']
+        qnty_dose_1         = sess['available_capacity_dose1']
+        qnty_dose_2         = sess['available_capacity_dose2']
+        slot_date           = sess['date']
         
-        time.sleep(time_interval)
-    else:
-        print (f"ERROR [{today_date}-{curr_time}] : No Information available on COWIN server.. looks like no Sessions")
-        # print (f"One message has already been sent Today {today_date}")
-        # print (f"Total message sent is {num_times_msg_sent}")
+        get_availability_for_45(age_limit, available_capacity)
+        get_availability_for_18(age_limit, available_capacity)
+        
+    # Update the dates in the list after sending one complete round of messages
+    if str(today_date) not in sent_dates_record:
+        sent_dates_record.append(str(today_date))
+    # sent_dates_record_18.append(str(today_date))
+    
+    time.sleep(time_interval)
+    # else:
+        # print (f"ERROR [{today_date}-{curr_time}] : No Information available on COWIN server.. looks like no Sessions")
+
         
     print (f"INFO : Total Number of times this code has checked CoWIN portal is: {num_iterations}")
