@@ -90,7 +90,7 @@ while True:
     print (f"INFO [{today_date}-{curr_time}] : Checking for VACCINES availabilities on the Portal")
     # print (f"Total {len(raw_JSON['sessions'])} centers found")
     # if sess_len > 0:
-    for sess in raw_JSON['sessions']:
+    for sess in raw_JSON["sessions"]:
         age_limit           = sess['min_age_limit']
         center_name         = sess['name']
         pincode             = sess['pincode']
