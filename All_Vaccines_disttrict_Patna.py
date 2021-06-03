@@ -15,6 +15,8 @@ tele_auth_token = environ['Tele_auth_tok']
 tel_group_id = "cowin_danapur_vaccine"
 Dist_ID = "097" # For Patna (Bihar)
 
+raw_JSON = {"sessions":[{"center_id":661924,"name":"GGS Patna City (Covaxin)","address":"Ashok Rajpath","state_name":"Bihar","district_name":"Patna","block_name":"Patna Sadar","pincode":800008,"from":"09:00:00","to":"18:00:00","lat":25,"long":85,"fee_type":"Free","session_id":"44551190-6c30-4d94-9d04-9ff73e3cecce","date":"05-06-2021","available_capacity_dose1":0,"available_capacity_dose2":0,"available_capacity":0,"fee":"0","min_age_limit":45,"vaccine":"COVAXIN","slots":["09:00AM-11:00AM","11:00AM-01:00PM","01:00PM-03:00PM","03:00PM-06:00PM"]}]}
+
 # Date calculation - Today and tomorrow
 time_interval = 30 # (in seconds) Specify the frequency of code execution
 header = {'User-Agent': 'Chrome/84.0.4147.105 Safari/537.36'}
@@ -34,6 +36,7 @@ def refresh_api_call(Dist_ID, tomorrow_date):
     # print (request_link)
     response = requests.get(request_link, headers = header)
     raw_JSON = response.json()
+    # print (raw_JSON)
     return raw_JSON
 
 sent_dates_record  = [] # List of dates for age group 45+ for which one round of message has been sent
