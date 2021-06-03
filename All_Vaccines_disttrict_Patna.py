@@ -31,6 +31,7 @@ def update_date_time():
 def refresh_api_call(Dist_ID, tomorrow_date):
     print ("Refreshing API call with updated parameters ...")
     request_link = f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id={Dist_ID}&date={tomorrow_date}"
+    # print (request_link)
     response = requests.get(request_link, headers = header)
     raw_JSON = response.json()
     return raw_JSON
@@ -82,8 +83,8 @@ while True:
     num_iterations += 1
     today_date, tomorrow_date, curr_time = update_date_time()
     raw_JSON = refresh_api_call(Dist_ID, tomorrow_date)
-    print ("Checking for VACCINES availabilities on the Portal")
-    
+    print (f"INFO [{today_date}-{curr_time}] : Checking for VACCINES availabilities on the Portal")
+    print (f"Total {len(raw_JSON['sessions'])} centers found")
     if len(raw_JSON['sessions']) != 0:
         for sess in raw_JSON['sessions']:
             age_limit           = sess['min_age_limit']
@@ -109,4 +110,4 @@ while True:
         # print (f"One message has already been sent Today {today_date}")
         # print (f"Total message sent is {num_times_msg_sent}")
         
-    print (f"INFO : Total Number of times CoWIN portal has been checked is: {num_iterations}")
+    print (f"INFO : Total Number of times this code has checked CoWIN portal is: {num_iterations}")
