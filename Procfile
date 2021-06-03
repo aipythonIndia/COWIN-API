@@ -1,1 +1,1 @@
-worker: python Tele_cowin_notif.py
+worker: python All_Vaccines_disttrict_Patna.py
