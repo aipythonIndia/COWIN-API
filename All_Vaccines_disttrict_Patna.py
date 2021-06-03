@@ -15,7 +15,7 @@ tele_auth_token = environ['Tele_auth_tok']
 tel_group_id = "cowin_danapur_vaccine"
 Dist_ID = "097" # For Patna (Bihar)
 
-raw_JSON = {"sessions":[{"center_id":661924,"name":"GGS Patna City (Covaxin)","address":"Ashok Rajpath","state_name":"Bihar","district_name":"Patna","block_name":"Patna Sadar","pincode":800008,"from":"09:00:00","to":"18:00:00","lat":25,"long":85,"fee_type":"Free","session_id":"44551190-6c30-4d94-9d04-9ff73e3cecce","date":"05-06-2021","available_capacity_dose1":0,"available_capacity_dose2":0,"available_capacity":0,"fee":"0","min_age_limit":45,"vaccine":"COVAXIN","slots":["09:00AM-11:00AM","11:00AM-01:00PM","01:00PM-03:00PM","03:00PM-06:00PM"]}]}
+resp_JSON = {"sessions":[{"center_id":661924,"name":"GGS Patna City (Covaxin)","address":"Ashok Rajpath","state_name":"Bihar","district_name":"Patna","block_name":"Patna Sadar","pincode":800008,"from":"09:00:00","to":"18:00:00","lat":25,"long":85,"fee_type":"Free","session_id":"44551190-6c30-4d94-9d04-9ff73e3cecce","date":"05-06-2021","available_capacity_dose1":0,"available_capacity_dose2":0,"available_capacity":0,"fee":"0","min_age_limit":45,"vaccine":"COVAXIN","slots":["09:00AM-11:00AM","11:00AM-01:00PM","01:00PM-03:00PM","03:00PM-06:00PM"]}]}
 
 # Date calculation - Today and tomorrow
 time_interval = 30 # (in seconds) Specify the frequency of code execution
@@ -35,9 +35,9 @@ def refresh_api_call(Dist_ID, tomorrow_date):
     request_link = f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id={Dist_ID}&date={tomorrow_date}"
     # print (request_link)
     response = requests.get(request_link, headers = header)
-    raw_JSON = response.json()
-    # print (raw_JSON)
-    return raw_JSON
+    resp_JSON = response.json()
+    # print (resp_JSON)
+    return resp_JSON
 
 sent_dates_record  = [] # List of dates for age group 45+ for which one round of message has been sent
 num_times_msg_sent = 0  # Number of times messages has been sent on Telegram
@@ -85,12 +85,12 @@ num_iterations = 0
 while True:
     num_iterations += 1
     today_date, tomorrow_date, curr_time = update_date_time()
-    raw_JSON = refresh_api_call(Dist_ID, tomorrow_date)
-    # sess_len = len(raw_JSON['sessions'])
+    resp_JSON = refresh_api_call(Dist_ID, tomorrow_date)
+    # sess_len = len(resp_JSON['sessions'])
     print (f"INFO [{today_date}-{curr_time}] : Checking for VACCINES availabilities on the Portal")
-    # print (f"Total {len(raw_JSON['sessions'])} centers found")
+    # print (f"Total {len(resp_JSON['sessions'])} centers found")
     # if sess_len > 0:
-    for sess in raw_JSON["sessions"]:
+    for sess in resp_JSON["sessions"]:
         age_limit           = sess['min_age_limit']
         center_name         = sess['name']
         pincode             = sess['pincode']
