@@ -45,8 +45,8 @@ def refresh_api_call(Dist_ID, tomorrow_date):
     # print (request_link)
     response = requests.get(request_link, headers = header)
     resp_JSON = response.json()
-    print ("Size of Response in MB: ", len(response.content)/1000000)
-    print ("Response Header: ", response.headers)
+    # print ("Size of Response in MB: ", len(response.content)/1000000)
+    # print ("Response Header: ", response.headers)
     return resp_JSON
 
 
@@ -70,8 +70,8 @@ def get_availability_for_45(age_limit, available_capacity):
         if (pincode not in pincodes_served_today_45) or (center_name not in centers_served_today_45) or (str(today_date) not in sent_dates_record):
             pincodes_served_today_45.append(pincode)
             centers_served_today_45.append(center_name)
-            # send_msg_on_telegram(msg, today_date)
-            print (msg) # For local testing
+            send_msg_on_telegram(msg, today_date)
+            # print (msg) # For local testing
         else:
             print (f"For Age 45+: Pincode {pincode} center name: {center_name} on {today_date} already served")
     else:
@@ -87,8 +87,8 @@ def get_availability_for_18(age_limit, available_capacity):
         if (pincode not in pincodes_served_today_18) or (center_name not in centers_served_today_18) or (str(today_date) not in sent_dates_record):        
             pincodes_served_today_18.append(pincode)
             centers_served_today_18.append(center_name)
-            # send_msg_on_telegram(msg,today_date)
-            print (msg) # For local testing
+            send_msg_on_telegram(msg,today_date)
+            # print (msg) # For local testing
         else:
             print (f"For Age 18+: Pincode {pincode} center name: {center_name} on {today_date} already served")
     else:
